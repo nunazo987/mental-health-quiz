@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { parse } from 'node:path';
 import { Question } from '../models/questions';
 
 let questions: Question[] = [
