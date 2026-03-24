@@ -1,12 +1,6 @@
 import { Request, Response } from 'express';
 import { parse } from 'node:path';
-
-interface Question {
-  id: number;
-  question: string;
-  options: string[];
-  correctAnswer: string;
-}
+import { Question } from '../models/questions';
 
 let questions: Question[] = [
     {
