@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Question } from '../models/questions';
 
-let questions: Question[] = [
+const questions: Question[] = [
     {
     id: 1,
     question: "What is anxiety?",
