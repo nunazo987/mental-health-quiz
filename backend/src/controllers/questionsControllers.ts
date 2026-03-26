@@ -16,23 +16,23 @@ const questions: Question[] = [
   },
 ];
 
-export const getQuestions = (req: Request, res: Response) => {
+export const getQuestions = (req: Request, res: Response): void => {
     res.json(questions);
 };
 
-export const getQuestionById = (req: Request, res: Response) => {
+export const getQuestionById = (req: Request, res: Response): void => {
     const idParam = req.params.id;
     const id = parseInt(Array.isArray(idParam) ? idParam[0] : idParam);
     const question = questions.find((q) => q.id === id);
-    if (!question) return res.status(404).json({ message: "Question not found." });
+    if (!question){ res.status(404).json({ message: "Question not found." }); return; }
     res.json(question);
 }
 
-export const createQuestion = (req: Request, res: Response) => {
+export const createQuestion = (req: Request, res: Response): void => {
     const { question, options, correctAnswer } = req.body;
 
     if (!question || !options || !correctAnswer || !Array.isArray(options) || !options.includes(correctAnswer) ){
-        return res.status(404).json({ message: "Invalid request body." });
+         res.status(400).json({ message: "Invalid request body." }); return; 
     }
 
     const newQuestion : Question = {
@@ -47,12 +47,12 @@ export const createQuestion = (req: Request, res: Response) => {
     res.status(201).json(newQuestion);
 }
 
-export const updateQuestion = (req: Request, res: Response) => {
+export const updateQuestion = (req: Request, res: Response): void => {
     const idParam = req.params.id;
     const id = parseInt(Array.isArray(idParam) ? idParam[0] : idParam);
     const questionToUpdate = questions.find(q => q.id === id);
 
-    if (!questionToUpdate) return res.status(404).json({ message: "Question not found." });
+    if (!questionToUpdate) { res.status(404).json({ message: "Question not found." }); return; }
 
     const { question, options, correctAnswer } = req.body;
 
@@ -63,12 +63,12 @@ export const updateQuestion = (req: Request, res: Response) => {
     res.json(questionToUpdate);
 }
 
-export const deleteQuestion = (req: Request, res: Response) => {
+export const deleteQuestion = (req: Request, res: Response): void => {
     const idParam = req.params.id;
     const id = parseInt(Array.isArray(idParam) ? idParam[0] : idParam);
 
     const index = questions.findIndex(q => q.id === id);
-    if (index === -1) return res.status(404).json({ message: "Question not found. "});
+    if (index === -1) { res.status(404).json({ message: "Question not found. "}); return; }
 
     const deletedQuestion = questions.splice(index, 1)[0];
     res.json({ message: "Question deleted.", deletedQuestion});
