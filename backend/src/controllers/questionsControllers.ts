@@ -16,13 +16,13 @@ export const getQuestionById = async (req: Request, res: Response): Promise<void
 };
 
 export const createQuestion = async (req: Request, res: Response): Promise<void> => {
-    const { question, options, correctAnswer } = req.body;
+    const { question, options, correctAnswer, explanation } = req.body;
     if (!question || !options || !correctAnswer || !Array.isArray(options) || !options.includes(correctAnswer)){
         res.status(400).json({ message: 'Invalid request body.' }); return;
   }
     const { data, error } = await supabase
     .from('questions')
-    .insert([{ question, options, 'correct_answer' : correctAnswer }])
+    .insert([{ question, options, 'correct_answer' : correctAnswer, explanation, 'approved': false }])
     .select()
     .single();
     if (error) { res.status(500).json({ message: error.message }); return; }
@@ -32,12 +32,14 @@ export const createQuestion = async (req: Request, res: Response): Promise<void>
 export const updateQuestion = async (req: Request, res: Response): Promise<void> => {
     const idParam = req.params.id;
     const id = parseInt(Array.isArray(idParam) ? idParam[0] : idParam);
-    const { question, options, correctAnswer } = req.body;
+    const { question, options, correctAnswer, explanation, approved } = req.body;
     const updates: Record<string, unknown> = {};
 
     if (question) updates.question = question;
     if (options && Array.isArray(options)) updates.options = options;
     if (correctAnswer) updates['correct_answer'] = correctAnswer;
+    if (explanation) updates.explanation = explanation;
+    if (approved !== undefined) updates.approved = approved;
 
     const { data, error } = await supabase
     .from('questions')
