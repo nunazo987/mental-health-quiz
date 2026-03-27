@@ -1,7 +1,7 @@
-import app from "./app"
+// import app from "./app.js"
 
-const PORT = 3000;
+// const PORT = 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on door ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running on door ${PORT}`);
+// });
