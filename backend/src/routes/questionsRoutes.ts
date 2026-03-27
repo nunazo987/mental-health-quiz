@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import express from 'express';
 import { getQuestions, getQuestionById, createQuestion, updateQuestion, deleteQuestion } from '../controllers/questionsControllers.js';
 
-const router = Router();
+const router = express.Router();
 
 router.get("/", getQuestions);
 router.get("/:id", getQuestionById);
