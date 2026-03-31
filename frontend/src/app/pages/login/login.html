@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="container">
+  <h2>{{ isLogin ? 'Login' : 'Register' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="your@email.com" />
+      <span *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        Valid email is required.
+      </span>
+    </div>
+
+    <div>
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="Min. 6 characters" />
+      <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+        Password must be at least 6 characters.
+      </span>
+    </div>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+    <button type="submit" [disabled]="form.invalid">
+      {{ isLogin ? 'Login' : 'Register' }}
+    </button>
+  </form>
+
+  <p>
+    {{ isLogin ? "Don't have an account?" : 'Already have an account?' }}
+    <a (click)="toggleMode()">{{ isLogin ? 'Register' : 'Login' }}</a>
+  </p>
+</div>
