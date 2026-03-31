@@ -1,1 +1,39 @@
-<p>quiz works!</p>
+<div class="container">
+  @if (!finished) {
+    @if (questions.length > 0) {
+      <p>Question {{ currentIndex + 1 }} of {{ questions.length }}</p>
+      <h2>{{ currentQuestion.question }}</h2>
+
+      <div class="options">
+        @for (option of currentQuestion.options; track option) {
+          <button
+            (click)="selectAnswer(option)"
+            [class.correct]="answered && option === currentQuestion.correct_answer"
+            [class.wrong]="answered && option === selectedAnswer && option !== currentQuestion.correct_answer"
+            [disabled]="answered">
+            {{ option }}
+          </button>
+        }
+      </div>
+
+      @if (showExplanation && currentQuestion.explanation) {
+        <div class="explanation">
+          <p>{{ currentQuestion.explanation }}</p>
+        </div>
+      }
+
+      @if (answered) {
+        <button (click)="next()">
+          {{ currentIndex < questions.length - 1 ? 'Next' : 'Finish' }}
+        </button>
+      }
+    } @else {
+      <p>Loading questions...</p>
+    }
+  } @else {
+    <h2>Quiz Complete!</h2>
+    <p>Your score: {{ score }} / {{ questions.length }}</p>
+    <button (click)="restart()">Play Again</button>
+    <button (click)="goToHistory()">View History</button>
+  }
+</div>
