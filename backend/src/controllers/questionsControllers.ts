@@ -66,4 +66,28 @@ export const deleteQuestion = async (req: Request, res: Response): Promise<void>
     res.status(204).send();
 };
 
+export const getQuiz = async (req: Request, res: Response):Promise<void> => {
+    const { data, error } = await supabase
+    .from('questions')
+    .select('*')
+    .eq('approved', true)
+    .limit(10);
+    if (error) { res.status(500).json({ message: error.message }); return; }
+    const shuffled = data.sort(() => Math.random() - 0.5);
+    res.json(shuffled);
+}
+
+export const approveQuestion = async (req: Request, res: Response): Promise<void> => {
+    const idParam = req.params.id;
+    const id = parseInt(Array.isArray(idParam) ? idParam[0] : idParam);
+    const { data, error } = await supabase
+        .from('questions')
+        .update({ approved: true })
+        .eq('id', id)
+        .select()
+        .single();
+    if (error) { res.status(404).json({ message: error.message }); return; }
+    res.json(data);
+}
+
 
