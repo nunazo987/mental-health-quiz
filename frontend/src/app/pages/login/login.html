@@ -5,20 +5,22 @@
     <div>
       <label>Email</label>
       <input type="email" formControlName="email" placeholder="your@email.com" />
-      <span *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-        Valid email is required.
-      </span>
+      @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        <span>Valid email is required.</span>
+      }
     </div>
 
     <div>
       <label>Password</label>
       <input type="password" formControlName="password" placeholder="Min. 6 characters" />
-      <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-        Password must be at least 6 characters.
-      </span>
+      @if (form.get('password')?.invalid && form.get('password')?.touched) {
+        <span>Password must be at least 6 characters.</span>
+      }
     </div>
 
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+    }
 
     <button type="submit" [disabled]="form.invalid">
       {{ isLogin ? 'Login' : 'Register' }}
