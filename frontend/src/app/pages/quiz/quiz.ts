@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api';
@@ -14,6 +14,7 @@ import { Question } from '../../models/question.model';
 export class Quiz implements OnInit {
   private api = inject(ApiService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   questions: Question[] = [];
   currentIndex = 0;
@@ -25,7 +26,11 @@ export class Quiz implements OnInit {
 
   ngOnInit(): void {
     this.api.getQuiz().subscribe({
-      next: (data) => this.questions = data,
+      next: (data) => {
+        console.log('Questions received:', data);
+        this.questions = data;
+        this.cdr.detectChanges();
+      },
       error: () => this.router.navigate(['/'])
     });
   }
