@@ -1,1 +1,14 @@
-<p>admin works!</p>
+<div class="container">
+  <h1>Admin Panel</h1>
+
+  @if (pendingQuestions.length === 0) {
+    <p>No pending questions.</p>
+  } @else {
+    @for (question of pendingQuestions; track question.id) {
+      <div class="question-card">
+        <p>{{ question.question }}</p>
+        <button (click)="approve(question.id)">Approve</button>
+      </div>
+    }
+  }
+</div>

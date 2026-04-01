@@ -78,6 +78,18 @@ export const getQuiz = async (req: Request, res: Response):Promise<void> => {
 }
 
 export const approveQuestion = async (req: Request, res: Response): Promise<void> => {
+    const userId = req.user?.id;
+    
+    const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', userId)
+        .single();
+
+    if (profileError || !profile?.is_admin) {
+        res.status(403).json({ message: 'Forbidden.' }); return;
+    }
+
     const idParam = req.params.id;
     const id = parseInt(Array.isArray(idParam) ? idParam[0] : idParam);
     const { data, error } = await supabase
@@ -86,8 +98,7 @@ export const approveQuestion = async (req: Request, res: Response): Promise<void
         .eq('id', id)
         .select()
         .single();
+
     if (error) { res.status(404).json({ message: error.message }); return; }
     res.json(data);
 }
-
-

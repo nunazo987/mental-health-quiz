@@ -1,1 +1,14 @@
-<p>history works!</p>
+<div class="container">
+  <h1>My History</h1>
+
+  @if (results.length === 0) {
+    <p>No results yet. Go take the quiz!</p>
+  } @else {
+    @for (result of results; track result.id) {
+      <div class="result-card">
+        <span>{{ result.score }} / {{ result.total }}</span>
+        <span>{{ result.created_at | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    }
+  }
+</div>
