@@ -44,4 +44,8 @@ export class ApiService {
   approveQuestion(id: number): Observable<Question> {
     return this.http.patch<Question>(`${this.baseUrl}/questions/${id}/approve`, {}, { headers: this.getHeaders() });
   }
+
+  getMe(): Observable<{ id: string, is_admin: boolean }> {
+    return this.http.get<{ id: string, is_admin: boolean }>(`${this.baseUrl}/auth/me`, { headers: this.getHeaders() });
+  }
 }

@@ -39,7 +39,12 @@ export class Login {
     request.subscribe({
       next: (res) => {
         localStorage.setItem('token', res.session.access_token);
-        this.router.navigate(['/quiz']);
+        this.api.getMe().subscribe({
+          next: (me) => {
+            localStorage.setItem('is_admin', String(me.is_admin));
+            this.router.navigate(['/quiz']);
+          }
+        })
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Something went wrong.';
