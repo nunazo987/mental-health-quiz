@@ -1,1 +1,96 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f5f0e8;
+  --bg-card: #faf7f2;
+  --text-primary: #2c2416;
+  --text-secondary: #6b5c45;
+  --accent: #c17f4a;
+  --accent-hover: #a66a38;
+  --border: #e0d5c5;
+  --correct: #4a7c59;
+  --wrong: #a63d2f;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+button {
+  background-color: var(--accent);
+  color: #faf7f2;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: var(--accent);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 1.25rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}

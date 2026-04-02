@@ -1,0 +1,51 @@
+.container {
+  max-width: 420px;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+span {
+  font-size: 13px;
+  color: var(--wrong);
+}
+
+.error {
+  font-size: 14px;
+  color: var(--wrong);
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+p {
+  margin-top: 1.25rem;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+p a {
+  cursor: pointer;
+  margin-left: 0.25rem;
+}
