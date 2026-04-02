@@ -21,4 +21,8 @@ export class Nav {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('is_admin') === 'true';
+  }
 }
