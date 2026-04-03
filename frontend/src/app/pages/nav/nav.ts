@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -11,18 +11,25 @@ import { Router } from '@angular/router';
   styleUrl: './nav.css'
 })
 export class Nav {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
-
   isAdmin(): boolean {
     return localStorage.getItem('is_admin') === 'true';
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('is_admin');
+    this.router.navigate(['/login']);
   }
 }
