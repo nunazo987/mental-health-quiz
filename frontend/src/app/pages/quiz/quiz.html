@@ -33,7 +33,9 @@
   } @else {
     <h2>Quiz Complete!</h2>
     <p>Your score: {{ score }} / {{ questions.length }}</p>
-    <button (click)="restart()">Play Again</button>
-    <button (click)="goToHistory()">View History</button>
+    <div class="quiz-actions">
+      <button (click)="restart()">Play Again</button>
+      <button (click)="goToHistory()">View History</button>
+    </div>
   }
 </div>

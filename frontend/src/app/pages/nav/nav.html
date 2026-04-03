@@ -1,14 +1,17 @@
 <nav>
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-  <a routerLink="/quiz" routerLinkActive="active">Quiz</a>
+  <a class="brand" routerLink="/">MindQuiz</a>
+  
+  <div class="nav-links">
+    <a routerLink="/quiz" routerLinkActive="active">Quiz</a>
 
-  @if (isLoggedIn()) {
-    <a routerLink="/history" routerLinkActive="active">History</a>
-    @if (isAdmin()) {
-    <a routerLink="/admin" routerLinkActive="active">Admin</a>
+    @if (isLoggedIn()) {
+      <a routerLink="/history" routerLinkActive="active">History</a>
+      @if (isAdmin()) {
+        <a routerLink="/admin" routerLinkActive="active">Admin</a>
+      }
+      <button (click)="logout()">Logout</button>
+    } @else {
+      <a routerLink="/login" routerLinkActive="active">Login</a>
     }
-    <button (click)="logout()">Logout</button>
-  } @else {
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-  }
+  </div>
 </nav>

@@ -27,8 +27,10 @@ export class Quiz implements OnInit {
   ngOnInit(): void {
     this.api.getQuiz().subscribe({
       next: (data) => {
-        console.log('Questions received:', data);
-        this.questions = data;
+        this.questions = data.map(q => ({
+          ...q,
+          options: [...q.options].sort(() => Math.random() - 0.5)
+        }));
         this.cdr.detectChanges();
       },
       error: () => this.router.navigate(['/'])

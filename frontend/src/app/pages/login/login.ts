@@ -15,10 +15,8 @@ export class Login {
   private fb = inject(FormBuilder);
   private api = inject(ApiService);
   private router = inject(Router);
-
   isLogin = true;
   errorMessage = '';
-
   form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
@@ -35,16 +33,19 @@ export class Login {
     const request = this.isLogin
       ? this.api.login(email, password)
       : this.api.register(email, password);
-
     request.subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.session.access_token);
-        this.api.getMe().subscribe({
+        const token = res.session.access_token;
+        localStorage.setItem('token', token);
+        this.api.getMe(token).subscribe({
           next: (me) => {
             localStorage.setItem('is_admin', String(me.is_admin));
-            this.router.navigate(['/quiz']);
+            this.router.navigate(['/']);
+          },
+          error: () => {
+            this.router.navigate(['/']);
           }
-        })
+        });
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Something went wrong.';
