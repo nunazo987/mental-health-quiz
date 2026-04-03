@@ -80,13 +80,13 @@ export const getQuiz = async (req: Request, res: Response):Promise<void> => {
 export const approveQuestion = async (req: Request, res: Response): Promise<void> => {
     const userId = req.user?.id;
     
-    const { data: profile, error: profileError } = await supabase
+    const { data: profile } = await supabase
         .from('profiles')
         .select('is_admin')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
 
-    if (profileError || !profile?.is_admin) {
+    if (!profile || !profile?.is_admin) {
         res.status(403).json({ message: 'Forbidden.' }); return;
     }
 

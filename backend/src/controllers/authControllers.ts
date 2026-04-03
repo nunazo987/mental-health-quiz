@@ -27,3 +27,16 @@ export const logout = async (req: Request, res: Response): Promise<void> => {
     res.status(204).send();
 };
 
+export const getMe = async (req: Request, res: Response): Promise<void> => {
+    const userId = req.user?.id;
+
+    const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('is_admin')
+    .eq('id', userId)
+    .single();
+
+    if (error) { res.status(500).json({ message: error.message }); return; }
+
+    res.json({ id: userId, is_admin: profile?.is_admin ?? false });
+}
