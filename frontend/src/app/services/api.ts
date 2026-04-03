@@ -34,7 +34,7 @@ export class ApiService {
   }
 
   getMyResults(): Observable<Result[]> {
-    return this.http.get<Result[]>(`${this.baseUrl}/results/me`, { headers: this.getHeaders() });
+    return this.http.get<Result[]>(`${this.baseUrl}/results/me?t=${Date.now()}`, { headers: this.getHeaders() });
   }
 
   getQuestions(): Observable<Question[]> {
@@ -45,7 +45,10 @@ export class ApiService {
     return this.http.patch<Question>(`${this.baseUrl}/questions/${id}/approve`, {}, { headers: this.getHeaders() });
   }
 
-  getMe(): Observable<{ id: string, is_admin: boolean }> {
-    return this.http.get<{ id: string, is_admin: boolean }>(`${this.baseUrl}/auth/me`, { headers: this.getHeaders() });
+  getMe(token?: string): Observable<{ id: string, is_admin: boolean }> {
+    const headers = token 
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : this.getHeaders();
+    return this.http.get<{ id: string, is_admin: boolean }>(`${this.baseUrl}/auth/me`, { headers });
   }
 }

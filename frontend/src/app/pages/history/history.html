@@ -1,7 +1,8 @@
 <div class="container">
   <h1>My History</h1>
-
-  @if (results.length === 0) {
+  @if (loading) {
+    <p>Loading...</p>
+  } @else if (results.length === 0) {
     <p>No results yet. Go take the quiz!</p>
   } @else {
     @for (result of results; track result.id) {

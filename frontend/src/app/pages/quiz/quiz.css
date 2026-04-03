@@ -27,6 +27,11 @@ p {
   transition: background-color 0.2s, border-color 0.2s;
 }
 
+.options button:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
 .options button:hover:not(:disabled) {
   border-color: var(--accent);
   background-color: var(--bg);
@@ -62,4 +67,10 @@ p {
   .options button {
     font-size: 14px;
   }
+}
+
+.quiz-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
 }
