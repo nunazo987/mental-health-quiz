@@ -10,7 +10,7 @@ import { AuthResponse } from '../models/auth.model';
 })
 export class ApiService {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://mental-health-quiz.onrender.com';
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
