@@ -51,4 +51,11 @@ export class ApiService {
       : this.getHeaders();
     return this.http.get<{ id: string, is_admin: boolean }>(`${this.baseUrl}/auth/me`, { headers });
   }
+
+  createQuestion(question: string, options: string[], correctAnswer: string, explanation: string): Observable<Question> {
+    return this.http.post<Question>(`${this.baseUrl}/questions`, 
+      { question, options, correctAnswer, explanation }, 
+      { headers: this.getHeaders() }
+    );
+}
 }
