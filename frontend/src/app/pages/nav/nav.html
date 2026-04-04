@@ -6,6 +6,7 @@
 
     @if (isLoggedIn()) {
       <a routerLink="/history" routerLinkActive="active">History</a>
+      <a routerLink="/submit-question" routerLinkActive="active">Submit Question</a>
       @if (isAdmin()) {
         <a routerLink="/admin" routerLinkActive="active">Admin</a>
       }

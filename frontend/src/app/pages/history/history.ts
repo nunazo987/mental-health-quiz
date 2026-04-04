@@ -18,17 +18,19 @@ export class History implements OnInit {
   loading = true;
 
   ngOnInit(): void {
-    this.api.getMyResults().subscribe({
-      next: (data) => {
-        this.results = data;
-        this.loading = false;
-        this.cdr.markForCheck();
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error(err);
-        this.loading = false;
-      }
-    });
+    setTimeout(() => {
+      this.api.getMyResults().subscribe({
+        next: (data) => {
+          this.results = data;
+          this.loading = false;
+          this.cdr.markForCheck();
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error(err);
+          this.loading = false;
+        }
+      });
+    }, 100);
+    }
   }
-}

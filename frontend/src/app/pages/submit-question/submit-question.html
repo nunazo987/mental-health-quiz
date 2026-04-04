@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>Submit a Question</h1>
+  <p>Your question will be reviewed before appearing in the quiz.</p>
+
+  @if (submitted) {
+    <p class="success">Question submitted! It will be reviewed soon.</p>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div>
+        <label>Question</label>
+        <input type="text" formControlName="question" placeholder="Enter your question" />
+        @if (form.get('question')?.invalid && form.get('question')?.touched) {
+          <span>Question must be at least 10 characters.</span>
+        }
+      </div>
+
+      <div>
+        <label>Option 1</label>
+        <input type="text" formControlName="option1" placeholder="Option 1" />
+      </div>
+      <div>
+        <label>Option 2</label>
+        <input type="text" formControlName="option2" placeholder="Option 2" />
+      </div>
+      <div>
+        <label>Option 3</label>
+        <input type="text" formControlName="option3" placeholder="Option 3" />
+      </div>
+      <div>
+        <label>Option 4</label>
+        <input type="text" formControlName="option4" placeholder="Option 4" />
+      </div>
+
+      <div>
+        <label>Correct Answer</label>
+        <input type="text" formControlName="correctAnswer" placeholder="Must match one of the options exactly" />
+        @if (errorMessage) {
+          <span>{{ errorMessage }}</span>
+        }
+      </div>
+
+      <div>
+        <label>Explanation (optional)</label>
+        <input type="text" formControlName="explanation" placeholder="Why is this the correct answer?" />
+      </div>
+
+      <button type="submit" [disabled]="form.invalid">Submit Question</button>
+    </form>
+  }
+</div>
