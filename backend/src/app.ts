@@ -5,7 +5,12 @@ import authRoutes from './routes/authRoutes.js';
 import resultsRoutes from './routes/resultsRoutes.js';
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:4200',
+        'https://mental-health-quiz-92tety3jq-nunazo987s-projects.vercel.app'
+    ]
+}));
 app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/results', resultsRoutes);
