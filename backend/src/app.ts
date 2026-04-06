@@ -8,7 +8,7 @@ const app = express();
 app.use(cors({
     origin: [
         'http://localhost:4200',
-        'https://mental-health-quiz-nunazo987s.vercel.app/'
+        'https://mental-health-quiz-nunazo987s.vercel.app'
     ]
 }));
 app.use(express.json());
