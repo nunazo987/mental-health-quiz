@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
 import { Quiz } from './quiz';
+import { provideHttpClient } from '@angular/common/http';
 
-describe('Quiz', () => {
-  let component: Quiz;
-  let fixture: ComponentFixture<Quiz>;
-
+describe('Admin', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Quiz],
+      providers: [provideHttpClient()]
     }).compileComponents();
-
-    fixture = TestBed.createComponent(Quiz);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(Quiz);
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
