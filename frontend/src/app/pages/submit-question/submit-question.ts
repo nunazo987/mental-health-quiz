@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-submit-question',
@@ -14,7 +13,6 @@ import { Router } from '@angular/router';
 export class SubmitQuestion {
   private fb = inject(FormBuilder);
   private api = inject(ApiService);
-  private router = inject(Router);
 
   submitted = false;
   errorMessage = '';
@@ -30,7 +28,11 @@ export class SubmitQuestion {
   });
 
   submit(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.errorMessage = 'Please fill all fields correctly.';
+      return;
+    }
+
     const { question, option1, option2, option3, option4, correctAnswer, explanation } = this.form.value;
     const options = [option1, option2, option3, option4];
 
@@ -42,9 +44,16 @@ export class SubmitQuestion {
     this.api.createQuestion(question, options, correctAnswer, explanation).subscribe({
       next: () => {
         this.submitted = true;
+        this.errorMessage = '';
+        this.form.reset();
       },
-      error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err.error?.message || 'Something went wrong.';
+      error: (err) => {
+        if (err.status === 401 || err.status === 403) {
+          this.errorMessage = 'Session expired. Please log in again.';
+        } else {
+          this.errorMessage = err.error?.message || 'Failed to submit question.';
+        }
+        console.error('Submission error:', err);
       }
     });
   }

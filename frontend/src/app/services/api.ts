@@ -14,7 +14,10 @@ export class ApiService {
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return new HttpHeaders({ 
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
   }
 
   login(email: string, password: string): Observable<AuthResponse> {
@@ -53,9 +56,18 @@ export class ApiService {
   }
 
   createQuestion(question: string, options: string[], correctAnswer: string, explanation: string): Observable<Question> {
-    return this.http.post<Question>(`${this.baseUrl}/questions`, 
-      { question, options, correctAnswer, explanation }, 
+    const payload = {
+      question: question,
+      options: options,
+      correctAnswer: correctAnswer,
+      explanation: explanation,
+      approved: false
+    };
+
+    return this.http.post<Question>(
+      `${this.baseUrl}/questions`, 
+      payload, 
       { headers: this.getHeaders() }
     );
-}
+  }
 }

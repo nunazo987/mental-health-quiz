@@ -1,50 +1,39 @@
 <div class="container">
-  <h1>Submit a Question</h1>
-  <p>Your question will be reviewed before appearing in the quiz.</p>
-
+  <h1>Submit Question</h1>
+  
   @if (submitted) {
-    <p class="success">Question submitted! It will be reviewed soon.</p>
+    <div class="success-box">
+      <p>Question submitted for review!</p>
+      <button (click)="submitted = false" class="btn-retry">Submit another</button>
+    </div>
   } @else {
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div>
+      <div class="field">
         <label>Question</label>
-        <input type="text" formControlName="question" placeholder="Enter your question" />
-        @if (form.get('question')?.invalid && form.get('question')?.touched) {
-          <span>Question must be at least 10 characters.</span>
-        }
+        <input type="text" formControlName="question" placeholder="Your question here..." />
       </div>
 
-      <div>
-        <label>Option 1</label>
-        <input type="text" formControlName="option1" placeholder="Option 1" />
-      </div>
-      <div>
-        <label>Option 2</label>
-        <input type="text" formControlName="option2" placeholder="Option 2" />
-      </div>
-      <div>
-        <label>Option 3</label>
-        <input type="text" formControlName="option3" placeholder="Option 3" />
-      </div>
-      <div>
-        <label>Option 4</label>
-        <input type="text" formControlName="option4" placeholder="Option 4" />
+      <div class="options-grid">
+        <div class="field"><label>Option 1</label><input type="text" formControlName="option1" /></div>
+        <div class="field"><label>Option 2</label><input type="text" formControlName="option2" /></div>
+        <div class="field"><label>Option 3</label><input type="text" formControlName="option3" /></div>
+        <div class="field"><label>Option 4</label><input type="text" formControlName="option4" /></div>
       </div>
 
-      <div>
+      <div class="field">
         <label>Correct Answer</label>
-        <input type="text" formControlName="correctAnswer" placeholder="Must match one of the options exactly" />
+        <input type="text" formControlName="correctAnswer" placeholder="Must be identical to one option" />
         @if (errorMessage) {
-          <span>{{ errorMessage }}</span>
+          <span class="error-msg">{{ errorMessage }}</span>
         }
       </div>
 
-      <div>
-        <label>Explanation (optional)</label>
-        <input type="text" formControlName="explanation" placeholder="Why is this the correct answer?" />
+      <div class="field">
+        <label>Explanation (Optional)</label>
+        <input type="text" formControlName="explanation" />
       </div>
 
-      <button type="submit" [disabled]="form.invalid">Submit Question</button>
+      <button type="submit" class="submit-btn" [disabled]="form.invalid">Submit</button>
     </form>
   }
 </div>
