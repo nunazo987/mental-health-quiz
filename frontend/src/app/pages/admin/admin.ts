@@ -13,15 +13,16 @@ import { Question } from '../../models/question.model';
 export class Admin implements OnInit {
   private api = inject(ApiService);
   private cdr = inject(ChangeDetectorRef);
-  questions: Question[] = [];
   pendingQuestions: Question[] = [];
 
   ngOnInit(): void {
+    this.loadPendingQuestions();
+  }
+
+  loadPendingQuestions(): void {
     this.api.getQuestions().subscribe({
       next: (data) => {
-        this.questions = data;
         this.pendingQuestions = data.filter(q => !q.approved);
-        this.cdr.markForCheck();
         this.cdr.detectChanges();
       },
       error: (err) => console.error(err)

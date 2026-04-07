@@ -1,14 +1,45 @@
-<div class="container">
-  <h1>Admin Panel</h1>
+<div class="admin-container">
+  <header class="admin-header">
+    <h1>Admin Panel</h1>
+    <p>Review and moderate community submissions</p>
+  </header>
 
   @if (pendingQuestions.length === 0) {
-    <p>No pending questions.</p>
+    <div class="empty-state">
+      <p>No pending questions to review.</p>
+    </div>
   } @else {
-    @for (question of pendingQuestions; track question.id) {
-      <div class="question-card">
-        <p>{{ question.question }}</p>
-        <button (click)="approve(question.id)">Approve</button>
-      </div>
-    }
+    <div class="questions-list">
+      @for (q of pendingQuestions; track q.id) {
+        <div class="admin-card">
+          <div class="card-body">
+            <h3 class="question-title">{{ q.question }}</h3>
+            
+            <div class="options-grid">
+              <div class="option" [class.is-correct]="q.correct_answer === q.options[0]">
+                <span class="label">A:</span> {{ q.options[0] }}
+              </div>
+              <div class="option" [class.is-correct]="q.correct_answer === q.options[1]">
+                <span class="label">B:</span> {{ q.options[1] }}
+              </div>
+              <div class="option" [class.is-correct]="q.correct_answer === q.options[2]">
+                <span class="label">C:</span> {{ q.options[2] }}
+              </div>
+              <div class="option" [class.is-correct]="q.correct_answer === q.options[3]">
+                <span class="label">D:</span> {{ q.options[3] }}
+              </div>
+            </div>
+
+            <div class="explanation-section" *ngIf="q.explanation">
+              <strong>Explanation:</strong> {{ q.explanation }}
+            </div>
+          </div>
+
+          <footer class="card-footer">
+            <button class="approve-button" (click)="approve(q.id)">Approve</button>
+          </footer>
+        </div>
+      }
+    </div>
   }
 </div>
