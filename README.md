@@ -1,82 +1,67 @@
-[![CI](https://github.com/nunazo987/mental-health-quiz/actions/workflows/ci.yml/badge.svg)](https://github.com/nunazo987/mental-health-quiz/actions/workflows/ci.yml)
+[![CI/CD](https://github.com/nunazo987/mental-health-quiz/actions/workflows/ci.yml/badge.svg)](https://github.com/nunazo987/mental-health-quiz/actions/workflows/ci.yml)
 
-# Mental Health Quiz — Backend API
+# 🧠 MindQuiz - Mental Health Literacy Platform
 
-**Author:** Nuno Silva  
-**Course:** Laboratórios Práticos  
-**Topic:** Mental Health Literacy Quiz — SDG 3 (Good Health and Well-Being)
-
----
-
-## Description
-
-REST API built with **Node.js + Express + TypeScript** to manage quiz questions about mental health literacy. Implements full CRUD operations on the `/questions` resource.
+**ODS 3: Good Health and Well-being**
+MindQuiz is an interactive platform designed to promote mental health literacy among young people. It provides an accessible way to recognize warning signs, understand anxiety, and learn how to act in crisis situations through gamified quizzes.
 
 ---
 
-## Tech Stack
-
-| Technology | Details |
-|------------|---------|
-| Node.js | 18+ |
-| Express | 4.x |
-| TypeScript | 5.x |
-| ESLint | Configured for ES Modules |
+## 🚀 Live Demo
+* **Frontend (Production):** [https://mental-health-quiz-nunazo987s.vercel.app](https://mental-health-quiz-nunazo987s.vercel.app)
+* **Backend API:** https://mental-health-quiz.onrender.com
 
 ---
 
-## Project Structure
-
-```
-backend/
-├── src/
-│   ├── controllers/
-│   │   └── questionsController.ts
-│   ├── models/
-│   │   └── questions.ts
-│   ├── routes/
-│   │   └── questions.ts
-│   └── index.ts
-├── package.json
-└── tsconfig.json
-```
+## 📸 Preview
+![App Screenshot](./assets/screenshot.png)
 
 ---
 
-## Running Locally
-
-```bash
-cd backend
-npm install
-npm run dev
-```
-
-Server starts at `http://localhost:3000`.
+## ✨ Features
+* **User Authentication:** Secure Sign Up and Login powered by Supabase Auth.
+* **Interactive Quiz:** Randomly generated 10-question sets to test mental health knowledge.
+* **User History:** Authenticated users can track their past quiz scores and progress.
+* **Community Contribution:** Users can submit new questions to the database.
+* **Admin Moderation:** Dedicated panel for admins to review and approve pending questions.
 
 ---
 
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/questions` | Returns all questions |
-| GET | `/questions/:id` | Returns a question by ID |
-| POST | `/questions` | Creates a new question |
-| PUT | `/questions/:id` | Updates an existing question |
-| DELETE | `/questions/:id` | Deletes a question |
-
----
-
-## CI/CD
-
-GitHub Actions pipeline runs automatically on Pull Requests:
-- ESLint check
-- TypeScript build
+## 🛠️ Tech Stack
+| Layer | Technology | Deployment |
+| :--- | :--- | :--- |
+| **Frontend** | Angular 21+, TypeScript | Vercel |
+| **Backend** | Node.js, Express | Render |
+| **Database** | Supabase (PostgreSQL) | Supabase Cloud |
+| **Auth** | Supabase Auth (JWT) | Supabase Cloud |
+| **CI/CD** | GitHub Actions | GitHub Actions |
 
 ---
 
-## Notes
+## ⚙️ Local Setup
 
-- Data is currently stored in memory. **Supabase** integration planned for the next phase.
-- Uses **ES Modules** (`"type": "module"` in `package.json`).
-- **JWT authentication** via Supabase Auth coming in the next phase.
+1. **Clone the repository:**
+   git clone <https://github.com/nunazo987/mental-health-quiz>
+
+2. **Backend Setup:**
+   cd backend
+   npm install
+   npm run dev
+   (Required .env variables: SUPABASE_URL, SUPABASE_KEY, PORT)
+
+3. **Frontend Setup:**
+   cd frontend
+   npm install
+   ng serve
+
+---
+
+## 💡 Technical Decision
+**CORS Policy Implementation:** A custom CORS middleware was implemented in the Express backend to restrict API access exclusively to the official Vercel production domain. This ensures data integrity and prevents unauthorized cross-origin requests, fulfilling the security requirements for production environments.
+
+---
+
+## 🧪 Testing
+Run unit tests with:
+npm test
+(Project includes at least 3 passing unit tests covering core application components.)
